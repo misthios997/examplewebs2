@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kafe Victoria — Plaza Senayan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --dark: #1a1208;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --brown: #5c3d1e;
+    --warm-gray: #8a7f72;
+    --accent: #8b1a1a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--dark);
+    color: var(--cream);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 40px 20px;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 30% 50%, rgba(201,168,76,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 20%, rgba(139,26,26,0.1) 0%, transparent 50%);
+  }
+
+  .hero-ornament {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .hero-ornament::before, .hero-ornament::after {
+    content: '——';
+    margin: 0 12px;
+    color: var(--gold);
+    opacity: 0.5;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+  }
+
+  .hero h1 span { color: var(--gold); font-style: italic; }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    margin-bottom: 32px;
+  }
+
+  .hero-info {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+
+  .hero-info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .hero-info-item .label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+
+  .hero-info-item .value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    color: var(--cream);
+  }
+
+  .hero-info-item a {
+    color: var(--cream);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+  }
+
+  .hero-info-item a:hover { color: var(--gold); }
+
+  .btn-menu {
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    padding: 14px 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .btn-menu:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  /* DIVIDER */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 16px 0;
+  }
+
+  .section-divider::before, .section-divider::after {
+    content: '';
+    flex: 1;
+    max-width: 80px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.4;
+  }
+
+  .section-divider .diamond {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  /* MENU SECTION */
+  .menu-section {
+    padding: 60px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .menu-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .menu-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .menu-header p {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--warm-gray);
+    font-size: 17px;
+    letter-spacing: 2px;
+  }
+
+  /* CATEGORY TABS - STICKY */
+  .category-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--cream);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 40px;
+  }
+
+  .category-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0;
+  }
+
+  .category-tabs {
+    display: flex;
+    gap: 0;
+    min-width: max-content;
+    padding: 0;
+    justify-content: flex-start;
+  }
+
+  .cat-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--warm-gray);
+    padding: 14px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .cat-btn:hover { color: var(--dark); }
+
+  .cat-btn.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    background: none;
+  }
+
+  /* MENU GRID */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2px;
+  }
+
+  .menu-card {
+    background: white;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: all 0.2s;
+    border: 1px solid rgba(0,0,0,0.06);
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .menu-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
+
+  .menu-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .menu-card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.3;
+  }
+
+  .menu-card-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .menu-card-desc {
+    font-size: 12.5px;
+    color: var(--warm-gray);
+    line-height: 1.5;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+  }
+
+  .menu-card-cat-badge {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 2px 8px;
+    width: fit-content;
+    margin-top: 2px;
+  }
+
+  .add-btn {
+    margin-top: auto;
+    padding-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .qty-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(0,0,0,0.12);
+  }
+
+  .qty-btn {
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+    font-weight: 300;
+  }
+
+  .qty-btn:hover { background: var(--gold); color: white; }
+
+  .qty-num {
+    width: 32px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--dark);
+  }
+
+  .cart-action-btn {
+    flex: 1;
+    background: #25D366;
+    color: white;
+    border: none;
+    padding: 9px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.92);
+    transition: opacity 0.2s, transform 0.2s, background 0.2s;
+  }
+
+  .cart-action-btn.visible {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1);
+  }
+
+  .cart-action-btn:hover { background: #20bb5a; }
+
+  /* CART FLOAT */
+  .cart-float {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+  }
+
+  .cart-btn-float {
+    background: var(--dark);
+    color: var(--cream);
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    position: relative;
+    transition: transform 0.2s;
+  }
+
+  .cart-btn-float:hover { transform: scale(1.05); background: var(--brown); }
+
+  .cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--gold);
+    color: var(--dark);
+    font-size: 10px;
+    font-weight: 700;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+  }
+
+  /* CART PANEL */
+  .cart-panel {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: min(380px, 100vw);
+    background: var(--cream);
+    box-shadow: -8px 0 40px rgba(0,0,0,0.15);
+    z-index: 200;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .cart-panel.open { transform: translateX(0); }
+
+  .cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 199;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+  .cart-panel-header {
+    padding: 24px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--dark);
+    color: var(--cream);
+  }
+
+  .cart-panel-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .close-cart {
+    background: none;
+    border: none;
+    color: var(--cream);
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    gap: 12px;
+  }
+
+  .cart-item-info { flex: 1; }
+
+  .cart-item-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  .cart-item-price { font-size: 12px; color: var(--warm-gray); }
+
+  .cart-item-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .remove-item {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--warm-gray);
+    font-size: 16px;
+    padding: 2px;
+    transition: color 0.2s;
+  }
+
+  .remove-item:hover { color: var(--accent); }
+
+  .cart-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--warm-gray);
+  }
+
+  .cart-empty .icon { font-size: 48px; margin-bottom: 12px; }
+
+  .cart-empty p { font-family: 'Cormorant Garamond', serif; font-size: 18px; }
+
+  .cart-footer {
+    padding: 20px 24px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    background: white;
+  }
+
+  .cart-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+  }
+
+  .cart-total .amount { color: var(--accent); }
+
+  .order-btn {
+    width: 100%;
+    background: #25D366;
+    color: white;
+    border: none;
+    padding: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s;
+  }
+
+  .order-btn:hover { background: #20bb5a; transform: translateY(-1px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: var(--cream);
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  footer .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  footer p {
+    font-size: 12px;
+    color: var(--warm-gray);
+    letter-spacing: 1px;
+  }
+
+  /* HIDDEN */
+  .menu-category { display: none; }
+  .menu-category.active { display: grid; }
+  .menu-category { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2px; }
+
+  .no-items { grid-column: 1/-1; text-align: center; padding: 60px; color: var(--warm-gray); font-family: 'Cormorant Garamond', serif; font-size: 20px; }
+
+  @media (max-width: 500px) {
+    .category-tabs { justify-content: flex-start; }
+    .hero-info { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-ornament">Est. Jakarta Pusat</div>
+  <h1>Kafe <span>Victoria</span></h1>
+  <p class="hero-sub">Plaza Senayan</p>
+  <div class="section-divider" style="max-width:200px;margin:0 auto 32px;">
+    <div class="diamond"></div>
+    <div style="flex:1;height:1px;background:var(--gold);opacity:0.3;"></div>
+    <div class="diamond"></div>
+  </div>
+  <div class="hero-info">
+    <div class="hero-info-item">
+      <span class="label">Jam Operasional</span>
+      <span class="value">Setiap Hari · 08:00 – 22:00</span>
+    </div>
+    <div class="hero-info-item">
+      <span class="label">Lokasi</span>
+      <a href="https://maps.google.com/?q=Kafe+Victoria+Plaza+Senayan+Jl.+Asia+Afrika+Jakarta" target="_blank" class="value">Jl. Asia Afrika, Senayan, Jakarta ↗</a>
+    </div>
+    <div class="hero-info-item">
+      <span class="label">Pesan via WhatsApp</span>
+      <a href="https://wa.me/628111072733" target="_blank" class="value">+62 811-107-2733 ↗</a>
+    </div>
+  </div>
+  <button class="btn-menu" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Lihat Menu</button>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="menu-header">
+    <h2>Menu Kami</h2>
+    <p>Pilih kategori · Atur jumlah · Pesan via WhatsApp</p>
+  </div>
+
+  <div class="section-divider"><div class="diamond"></div></div>
+  <br>
+</section>
+
+<!-- STICKY CATEGORY BAR -->
+<div class="category-sticky">
+  <div class="category-scroll">
+    <div class="category-tabs" id="catTabs">
+      <button class="cat-btn active" data-cat="all">Semua</button>
+      <button class="cat-btn" data-cat="appetizer">Appetizer</button>
+      <button class="cat-btn" data-cat="salad">Salad & Sandwich</button>
+      <button class="cat-btn" data-cat="fish">Fish & Poultry</button>
+      <button class="cat-btn" data-cat="pasta">Pasta</button>
+      <button class="cat-btn" data-cat="meat">Meat</button>
+      <button class="cat-btn" data-cat="japanese">Japanese Food</button>
+      <button class="cat-btn" data-cat="noodle">Noodle Soup</button>
+      <button class="cat-btn" data-cat="asia">Taste of Asia</button>
+      <button class="cat-btn" data-cat="dessert">Dessert</button>
+      <button class="cat-btn" data-cat="beverage">Beverage</button>
+    </div>
+  </div>
+</div>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 20px 60px;">
+  <div class="menu-grid" id="menuGrid"></div>
+</div>
+
+<footer>
+  <div class="footer-logo">Kafe Victoria</div>
+  <p>Jl. Asia Afrika, RT.1/RW.3, Senayan, Tanah Abang, Jakarta Pusat 10270</p>
+  <br>
+  <p>© 2024 Kafe Victoria Plaza Senayan. All rights reserved.</p>
+</footer>
+
+<!-- CART FLOAT -->
+<div class="cart-float">
+  <button class="cart-btn-float" onclick="toggleCart()" title="Keranjang">
+    🛒
+    <span class="cart-badge" id="cartBadge">0</span>
+  </button>
+</div>
+
+<!-- OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+<!-- CART PANEL -->
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-panel-header">
+    <h3>Keranjang Pesanan</h3>
+    <button class="close-cart" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty">
+      <div class="icon">🛒</div>
+      <p>Keranjang masih kosong</p>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <span class="amount" id="cartTotal">Rp 0</span>
+    </div>
+    <button class="order-btn" onclick="orderViaWhatsApp()">
+      <span>💬</span>
+      Pesan via WhatsApp
+    </button>
+  </div>
+</div>
+
+<script>
+const MENU = [
+  // APPETIZER
+  { id:1, name:"Combro", price:69500, desc:"Sundanese food is made from grated cassava 'oncom' and chili", cat:"appetizer" },
+  { id:2, name:"Gyoza", price:79500, desc:"Japanese dumpling filled with ground chicken, shrimps and vegetables", cat:"appetizer" },
+  { id:3, name:"\"Singkong\" Garlic", price:79500, desc:"Deep fried cassava with garlic powder", cat:"appetizer" },
+  { id:4, name:"Fried Calamari", price:94500, desc:"Deep fried ring squid served with tartar sauce", cat:"appetizer" },
+  { id:5, name:"Traditional Snack", price:98500, desc:"Deep fried banana fritters, 'bakwan', garlic cassava and grilled 'tape'", cat:"appetizer" },
+  { id:6, name:"Nachos", price:114500, desc:"Tortilla chips topped with homemade queso sauce, cheddar cheese and jalapeno served fresh salsa dip", cat:"appetizer" },
+
+  // SALAD & SANDWICHES
+  { id:7, name:"Caesar Salad - Salmon", price:72500, desc:"Roman lettuce tossed with creamy caesar dressing, parmesan cheese and croutons", cat:"salad" },
+  { id:8, name:"Caesar Salad - Chicken", price:64500, desc:"Roman lettuce tossed with creamy caesar dressing, parmesan cheese and croutons", cat:"salad" },
+  { id:9, name:"Crispy Chicken Salad", price:67500, desc:"Imported vegetables salad with crispy chicken and shredded cheddar dressed with Italian dressing", cat:"salad" },
+  { id:10, name:"Mixed Green Salad with Avocado", price:64500, desc:"Fresh Roman lettuce, cucumber, sliced red onion and dried avocado tossed with olive oil", cat:"salad" },
+  { id:11, name:"Tuna Sandwich", price:62500, desc:"Toasted bread filled with tuna in mayo, lettuce, onion, tomato and served with french fries", cat:"salad" },
+  { id:12, name:"Club Sandwich", price:74500, desc:"Toasted bread filled with smoked beef, chicken, cheese, lettuce, onion, tomato and egg served with french fries", cat:"salad" },
+  { id:13, name:"Mini Burger", price:64500, desc:"Mini burger buns filled with home-made beef patty served with french fries and coleslaw on side", cat:"salad" },
+
+  // FISH & POULTRY
+  { id:14, name:"Salmon Steak", price:124500, desc:"Grilled Norwegian salmon served with mashed potato and fresh vegetables", cat:"fish" },
+  { id:15, name:"Gindara Lemon Butter", price:82500, desc:"Juicy white fish grilled to perfection served with baked potato and fresh vegetables", cat:"fish" },
+  { id:16, name:"Fish & Chips", price:74500, desc:"Deep fried flakey flat fish served with french fries and tartar sauce", cat:"fish" },
+  { id:17, name:"Chicken Cordon Bleu", price:79500, desc:"Deep fried breaded chicken breast, stuffed with smoked beef and cheese served with french fries and vegetables", cat:"fish" },
+  { id:18, name:"Chicken Steak", price:69500, desc:"Grilled boneless chicken leg served with french fries and vegetables", cat:"fish" },
+  { id:19, name:"Chicken Basket", price:59500, desc:"Deep fried chicken drum sticks served with french fries and tartar sauce", cat:"fish" },
+  { id:20, name:"Chicken Madagascar", price:79500, desc:"Grilled chicken roll filled with cheese served with mashed potato and vegetables", cat:"fish" },
+
+  // PASTA
+  { id:21, name:"Spaghetti Bolognaise", price:59500, desc:"Spaghetti with minced beef tomato sauce and parmesan cheese", cat:"pasta" },
+  { id:22, name:"Tuna Chilli Spaghetti", price:54500, desc:"Spaghetti in olive oil and garlic sauce with tuna chunks, mushroom and green chili", cat:"pasta" },
+  { id:23, name:"Fettuccine Alfredo", price:64500, desc:"Fettuccine with smoked beef, mushroom and cream sauce", cat:"pasta" },
+  { id:24, name:"Lasagna", price:67500, desc:"Baked layer of pasta, beef bolognaise and béchamel sauce topped with fresh mozzarella", cat:"pasta" },
+
+  // MEAT
+  { id:25, name:"Aust. Sirloin", price:139500, desc:"Australian sirloin grilled to perfection served with french fries, vegetables and choice of sauce", cat:"meat" },
+  { id:26, name:"Aust. Tenderloin", price:197500, desc:"Australian tenderloin grilled to perfection served with french fries, vegetables and choice of sauce", cat:"meat" },
+  { id:27, name:"Rib Eye Steak Hot Stone", price:239500, desc:"200gr rib eye served with french fries, mushrooms and choice of sauce", cat:"meat" },
+  { id:28, name:"Wagyu BBQ", price:197500, desc:"150gr grilled thinly sliced wagyu rib-eye served with french fries", cat:"meat" },
+  { id:29, name:"Black Angus Sirloin Hot Stone", price:197500, desc:"200gr sirloin served with french fries, vegetables and choice of sauce", cat:"meat" },
+  { id:30, name:"Pepper Steak Paris", price:189500, desc:"Grilled Australian tenderloin served with mashed potato, vegetables and pepper sauce", cat:"meat" },
+
+  // JAPANESE FOOD
+  { id:31, name:"Sukiyaki", price:87500, desc:"Thinly sliced beef slowly cooked alongside with vegetables and tofu in soy sauce soup", cat:"japanese" },
+  { id:32, name:"Tempura Set", price:82500, desc:"Japanese deep fried prawn and vegetables served with steamed rice, miso soup & kimchi", cat:"japanese" },
+  { id:33, name:"Shabu-Shabu", price:84500, desc:"Japanese beef shabu-boat served with miso soup", cat:"japanese" },
+  { id:34, name:"Chicken Teriyaki", price:72500, desc:"Chicken glazed with teriyaki sauce, served with steamed rice, miso soup & kimchi", cat:"japanese" },
+  { id:35, name:"Beef Teriyaki", price:97500, desc:"Sliced grilled Australian sirloin with teriyaki sauce, served with steamed rice, miso soup & kimchi", cat:"japanese" },
+  { id:36, name:"Salmon Teriyaki", price:107500, desc:"Grilled salmon with teriyaki sauce, served with steamed rice, miso soup & kimchi", cat:"japanese" },
+  { id:37, name:"Teriyaki Combination", price:82500, desc:"Sautéed sliced beef, grilled chicken and prawn in teriyaki sauce served with steamed rice", cat:"japanese" },
+  { id:38, name:"Jyu Jyu Steak - Australian Beef", price:127500, desc:"Sizzling beef on iron, served in hot stone, served in hot plate", cat:"japanese" },
+  { id:39, name:"Jyu Jyu Steak - Salmon", price:132500, desc:"Sizzling salmon on iron, served in hot stone", cat:"japanese" },
+  { id:40, name:"Jyu Jyu Steak - Angus Beef", price:159500, desc:"Sizzling Angus beef on iron, served in hot stone", cat:"japanese" },
+  { id:41, name:"Victoria Bento", price:142500, desc:"Japanese meal box served with crispy chicken teriyaki, onion, yakitori, prawn tempura and miso soup", cat:"japanese" },
+  { id:42, name:"Unagi", price:79500, desc:"Grilled Japanese eel served with steamed rice, miso soup & kimchi", cat:"japanese" },
+  { id:43, name:"Japanese Hamburg", price:89500, desc:"Grilled pan beef patty in teriyaki sauce, served with vegetables & steamed rice", cat:"japanese" },
+
+  // NOODLE SOUP
+  { id:44, name:"Tempura Udon", price:62500, desc:"Japanese noodle soup with tempura and yam/taro", cat:"noodle" },
+  { id:45, name:"Beef Udon", price:72500, desc:"Japanese noodle soup with sliced imported beef", cat:"noodle" },
+  { id:46, name:"Beef Ramen", price:74500, desc:"Japanese ramen soup with sliced beef, boiled egg and vegetables", cat:"noodle" },
+
+  // TASTE OF ASIA
+  { id:47, name:"Hainan Chicken Rice", price:72500, desc:"Poached or fried Hainan style chicken served with special steamed rice, chicken broth and condiments", cat:"asia" },
+  { id:48, name:"Sam Gye Tang", price:149500, desc:"Korean whole young chicken soup stuffed with ginseng, sticky rice, dates and garlic", cat:"asia" },
+  { id:49, name:"Oxtail Soup", price:149500, desc:"Indonesian oxtail broth served with steamed rice & choice of grilled or boiled oxtail", cat:"asia" },
+  { id:50, name:"Sliced Beef Black Pepper", price:79500, desc:"Stir fried imported beef & vegetables with black pepper sauce, served with steamed rice", cat:"asia" },
+  { id:51, name:"Tom Yam Soup", price:79500, desc:"The spicy and sour seafood soup served with steamed rice", cat:"asia" },
+  { id:52, name:"Sop Iga Bakar", price:132500, desc:"Indonesian slow grilled Australian ribs served with rice and soup", cat:"asia" },
+  { id:53, name:"Fried Rice (Beef or Lamb)", price:74500, desc:"Victoria's special fried rice with choices of beef or lamb", cat:"asia" },
+
+  // DESSERT
+  { id:54, name:"Beignet", price:27500, desc:"Classic French pastry fritters", cat:"dessert" },
+  { id:55, name:"Apple Pie", price:34500, desc:"Classic American apple pie", cat:"dessert" },
+  { id:56, name:"Betty's Cake", price:67500, desc:"Chef's signature cake", cat:"dessert" },
+  { id:57, name:"Molten Chocolate", price:69500, desc:"Warm chocolate lava cake", cat:"dessert" },
+  { id:58, name:"Banana Fritters", price:74500, desc:"Deep fried banana fritters", cat:"dessert" },
+  { id:59, name:"Cendol Probo", price:67500, desc:"Traditional Indonesian dessert", cat:"dessert" },
+  { id:60, name:"Es Doger", price:67500, desc:"Traditional Indonesian dessert", cat:"dessert" },
+  { id:61, name:"Jogja-Jogja", price:79500, desc:"Traditional Javanese dessert", cat:"dessert" },
+  { id:62, name:"Coconut Island 'Kopyor'", price:87500, desc:"Refreshing coconut dessert", cat:"dessert" },
+  { id:63, name:"Molten Chocolate", price:49500, desc:"Warm chocolate lava cake", cat:"dessert" },
+  { id:64, name:"Banana Split", price:49500, desc:"Classic banana split with ice cream", cat:"dessert" },
+  { id:65, name:"Cheese Cake", price:34500, desc:"Creamy New York style cheesecake", cat:"dessert" },
+  { id:66, name:"Black Forest", price:34500, desc:"Classic German chocolate cake", cat:"dessert" },
+  { id:67, name:"Tiramisu", price:34500, desc:"Classic Italian coffee dessert", cat:"dessert" },
+  { id:68, name:"Fruitty Yoghurt", price:52500, desc:"Fresh yogurt with seasonal fruits", cat:"dessert" },
+  { id:69, name:"Opera Cake", price:34500, desc:"Classic French layered almond cake", cat:"dessert" },
+  { id:70, name:"Fruits Salad", price:59500, desc:"Fresh seasonal fruits salad", cat:"dessert" },
+
+  // BEVERAGE - TEA
+  { id:71, name:"Lipton Tea", price:47500, desc:"Classic Lipton tea", cat:"beverage" },
+  { id:72, name:"Classic Tea (English Breakfast / Earl Grey / Jasmine / Lemon Grass / Peppermint)", price:49500, desc:"Choice of premium teas", cat:"beverage" },
+  { id:73, name:"Japanese Green Tea / Sencha", price:49500, desc:"Premium green tea", cat:"beverage" },
+  { id:74, name:"Oolong Tea", price:49500, desc:"Traditional Chinese oolong tea", cat:"beverage" },
+  { id:75, name:"Lychee Iced Tea", price:59500, desc:"Refreshing lychee flavored iced tea", cat:"beverage" },
+  { id:76, name:"Peach Iced Tea", price:57500, desc:"Refreshing peach flavored iced tea", cat:"beverage" },
+  { id:77, name:"Chamomile Tea", price:54500, desc:"Soothing chamomile herbal tea", cat:"beverage" },
+  { id:78, name:"Rosella Flower Tea", price:54500, desc:"Floral rosella herbal tea", cat:"beverage" },
+  // SOFT DRINK
+  { id:79, name:"Equil", price:39500, desc:"Premium mineral water", cat:"beverage" },
+  { id:80, name:"Coca Cola", price:34500, desc:"Classic Coca Cola", cat:"beverage" },
+  { id:81, name:"Diet Coke", price:39500, desc:"Diet Coca Cola", cat:"beverage" },
+  { id:82, name:"Iced Lemon Tea", price:49500, desc:"Fresh lemon iced tea", cat:"beverage" },
+  { id:83, name:"Virgin Mojito", price:59500, desc:"Refreshing non-alcoholic mojito", cat:"beverage" },
+  // COFFEE
+  { id:84, name:"Latte", price:41500, desc:"Espresso with steamed milk", cat:"beverage" },
+  { id:85, name:"Long Black", price:48500, desc:"Double espresso with hot water", cat:"beverage" },
+  { id:86, name:"Cafe Au Lait", price:49500, desc:"Coffee with hot milk", cat:"beverage" },
+  { id:87, name:"Macchiato", price:49500, desc:"Espresso with a dash of milk", cat:"beverage" },
+  { id:88, name:"Cafe Mocha", price:49500, desc:"Espresso with chocolate and milk", cat:"beverage" },
+  { id:89, name:"Cappuccino", price:49500, desc:"Espresso with steamed milk foam", cat:"beverage" },
+  { id:90, name:"Espresso", price:49500, desc:"Strong Italian coffee shot", cat:"beverage" },
+  { id:91, name:"Ginger Espresso", price:54500, desc:"Espresso with ginger kick", cat:"beverage" },
+  { id:92, name:"Caramel Latte", price:51500, desc:"Latte with caramel syrup", cat:"beverage" },
+];
+
+const catLabels = {
+  appetizer: "Appetizer",
+  salad: "Salad & Sandwich",
+  fish: "Fish & Poultry",
+  pasta: "Pasta",
+  meat: "Meat",
+  japanese: "Japanese Food",
+  noodle: "Noodle Soup",
+  asia: "Taste of Asia",
+  dessert: "Dessert",
+  beverage: "Beverage"
+};
+
+let cart = {};
+let currentCat = 'all';
+
+function fmt(n) {
+  return 'Rp ' + n.toLocaleString('id-ID');
+}
+
+function renderMenu(cat) {
+  const grid = document.getElementById('menuGrid');
+  const items = cat === 'all' ? MENU : MENU.filter(m => m.cat === cat);
+  
+  if (!items.length) {
+    grid.innerHTML = '<div class="no-items">Tidak ada menu di kategori ini</div>';
+    return;
+  }
+
+  grid.innerHTML = items.map(item => `
+    <div class="menu-card">
+      <div class="menu-card-top">
+        <div class="menu-card-name">${item.name}</div>
+        <div class="menu-card-price">${fmt(item.price)}</div>
+      </div>
+      <div class="menu-card-desc">${item.desc}</div>
+      <div class="menu-card-cat-badge">${catLabels[item.cat]}</div>
+      <div class="add-btn">
+        <div class="qty-control">
+          <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+          <span class="qty-num" id="qty-${item.id}">${cart[item.id]?.qty || 0}</span>
+          <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+        </div>
+        <button class="cart-action-btn ${cart[item.id]?.qty > 0 ? 'visible' : ''}" id="cartbtn-${item.id}" onclick="orderSingleViaWhatsApp(${item.id})">
+          💬 Pesan
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function changeQty(id, delta) {
+  const item = MENU.find(m => m.id === id);
+  if (!cart[id]) cart[id] = { item, qty: 0 };
+  cart[id].qty = Math.max(0, cart[id].qty + delta);
+  if (cart[id].qty === 0) delete cart[id];
+  updateQtyDisplay(id);
+  updateCartBtnVisibility(id);
+  updateBadge();
+}
+
+function updateCartBtnVisibility(id) {
+  const btn = document.getElementById('cartbtn-' + id);
+  if (btn) {
+    const qty = cart[id]?.qty || 0;
+    btn.classList.toggle('visible', qty > 0);
+  }
+}
+
+function orderSingleViaWhatsApp(id) {
+  // Send just this item via WA
+  const { item, qty } = cart[id] || {};
+  if (!item || !qty) return;
+  const total = item.price * qty;
+  const msg = `Halo saya ingin membeli ini:\n${item.name} ${qty}\n\nDiperkirakan total Rp ${total.toLocaleString('id-ID')}\nKami menunggu konfirmasi dengan pembayaran.`;
+  window.open(`https://wa.me/628111072733?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function updateQtyDisplay(id) {
+  const el = document.getElementById('qty-' + id);
+  if (el) el.textContent = cart[id]?.qty || 0;
+}
+
+function updateBadge() {
+  const total = Object.values(cart).reduce((s, v) => s + v.qty, 0);
+  const badge = document.getElementById('cartBadge');
+  badge.textContent = total;
+  badge.style.display = total > 0 ? 'flex' : 'none';
+}
+
+function toggleCart() {
+  document.getElementById('cartPanel').classList.toggle('open');
+  document.getElementById('cartOverlay').classList.toggle('open');
+  renderCartItems();
+}
+
+function renderCartItems() {
+  const container = document.getElementById('cartItems');
+  const empty = document.getElementById('cartEmpty');
+  const items = Object.values(cart);
+
+  if (!items.length) {
+    container.innerHTML = `<div class="cart-empty"><div class="icon">🛒</div><p>Keranjang masih kosong</p></div>`;
+    document.getElementById('cartTotal').textContent = 'Rp 0';
+    return;
+  }
+
+  let total = 0;
+  container.innerHTML = items.map(({ item, qty }) => {
+    total += item.price * qty;
+    return `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">${qty} × ${fmt(item.price)}</div>
+        </div>
+        <div class="cart-item-right">
+          <div class="qty-control">
+            <button class="qty-btn" onclick="cartChangeQty(${item.id}, -1)">−</button>
+            <span class="qty-num">${qty}</span>
+            <button class="qty-btn" onclick="cartChangeQty(${item.id}, 1)">+</button>
+          </div>
+          <button class="remove-item" onclick="removeFromCart(${item.id})">✕</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('cartTotal').textContent = fmt(total);
+}
+
+function cartChangeQty(id, delta) {
+  changeQty(id, delta);
+  renderCartItems();
+}
+
+function removeFromCart(id) {
+  delete cart[id];
+  updateQtyDisplay(id);
+  updateBadge();
+  renderCartItems();
+}
+
+function orderViaWhatsApp() {
+  const items = Object.values(cart);
+  if (!items.length) { alert('Keranjang masih kosong!'); return; }
+
+  let total = 0;
+  let lines = items.map(({ item, qty }) => {
+    total += item.price * qty;
+    return `${item.name} ${qty}`;
+  });
+
+  const msg = `Halo saya ingin membeli ini:\n${lines.join('\n')}\n\nDiperkirakan total Rp ${total.toLocaleString('id-ID')}\nKami menunggu konfirmasi dengan pembayaran.`;
+
+  const url = `https://wa.me/628111072733?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+
+// Category tabs
+document.getElementById('catTabs').addEventListener('click', e => {
+  const btn = e.target.closest('.cat-btn');
+  if (!btn) return;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCat = btn.dataset.cat;
+  renderMenu(currentCat);
+});
+
+// Init
+renderMenu('all');
+</script>
+</body>
+</html>
